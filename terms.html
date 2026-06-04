@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms &amp; Conditions — Kaia Skies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy-950:#030B18;--navy-900:#07152B;--navy-800:#0D2247;
+      --gold-400:#E8C97A;--gold-500:#C9A84C;
+      --cream:#F5F0E8;--text-muted:rgba(245,240,232,.55);
+      --font-display:'Cormorant Garamond',Georgia,serif;
+      --font-body:'Inter',system-ui,sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{font-size:16px;scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--navy-950);color:var(--cream);line-height:1.7;}
+    a{color:var(--gold-400);text-underline-offset:3px;}
+    a:hover{text-decoration:underline;}
+
+    nav{background:rgba(3,11,24,.95);backdrop-filter:blur(20px);
+      border-bottom:1px solid rgba(201,168,76,.1);padding:1.25rem 2rem;
+      display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100;}
+    .nav-logo{font-family:var(--font-display);font-size:1.375rem;color:var(--gold-400);letter-spacing:.06em;}
+    .nav-logo em{font-style:italic;}
+    .nav-right{display:flex;align-items:center;gap:.75rem;}
+    .nav-back{font-size:.8125rem;color:var(--text-muted);display:flex;align-items:center;gap:.375rem;transition:color .2s;}
+    .nav-back:hover{color:var(--cream);text-decoration:none;}
+
+    .lang-switcher{display:flex;align-items:center;gap:2px;}
+    .lang-switcher [data-lang-btn]{background:none;border:none;cursor:pointer;
+      font-family:var(--font-body);font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+      color:rgba(245,240,232,.3);padding:.3rem .4rem;border-radius:4px;
+      transition:color .2s,background .2s;min-height:32px;min-width:32px;}
+    .lang-switcher [data-lang-btn].active{color:var(--gold-400);background:rgba(201,168,76,.08);}
+    .lang-switcher [data-lang-btn]:hover:not(.active){color:var(--cream);}
+    .lang-sep{color:rgba(201,168,76,.2);font-size:.55rem;pointer-events:none;}
+
+    .page-header{background:linear-gradient(180deg,var(--navy-800) 0%,var(--navy-900) 100%);
+      border-bottom:1px solid rgba(201,168,76,.1);padding:4rem 2rem 3rem;text-align:center;}
+    .page-header h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);font-weight:300;color:var(--cream);}
+    .page-header p{color:var(--text-muted);font-size:.875rem;margin-top:.5rem;}
+
+    .content{max-width:760px;margin:0 auto;padding:4rem 1.5rem 6rem;}
+    h2{font-family:var(--font-display);font-size:1.5rem;font-weight:400;color:var(--gold-400);margin:2.5rem 0 .75rem;}
+    p{color:var(--text-muted);margin-bottom:1rem;font-size:.9375rem;}
+    ul{color:var(--text-muted);font-size:.9375rem;padding-left:1.5rem;margin-bottom:1rem;}
+    li{margin-bottom:.375rem;}
+
+    footer{border-top:1px solid rgba(201,168,76,.08);padding:2rem 1.5rem;text-align:center;font-size:.8rem;color:rgba(245,240,232,.25);}
+    footer nav{background:none!important;border:none!important;padding:0!important;position:static!important;
+      justify-content:center;flex-wrap:wrap;gap:1.5rem;backdrop-filter:none!important;}
+    footer nav a{font-size:.8rem;color:rgba(245,240,232,.35);}
+    footer nav a:hover{color:var(--gold-400);text-decoration:none;}
+
+    /* Language toggle */
+    html[lang="en"] .lang-de{display:none!important;}
+    html[lang="de"] .lang-en{display:none!important;}
+  </style>
+</head>
+<body>
+
+  <nav aria-label="Page navigation">
+    <a href="index.html" class="nav-logo"><em>Kaia</em> Skies</a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back" data-i18n="nav.back">← Back to Home</a>
+      <div class="lang-switcher">
+        <button data-lang-btn="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button data-lang-btn="de">DE</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <h1 class="lang-en">Terms &amp; Conditions</h1>
+    <h1 class="lang-de">Allgemeine Geschäftsbedingungen</h1>
+    <p class="lang-en">Last updated: June 2025</p>
+    <p class="lang-de">Zuletzt aktualisiert: Juni 2025</p>
+  </header>
+
+  <main class="content">
+
+    <!-- ENGLISH -->
+    <div class="lang-en">
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing or using the Kaia Skies website and downloading the free workbook "The Fearless Flyer," you agree to be bound by these Terms and Conditions. If you do not agree, please do not use this website.</p>
+
+      <h2>2. Use of Content</h2>
+      <p>All content provided on this website — including the workbook, text, graphics, and design — is for personal, non-commercial use only. You may not reproduce, distribute, sell, or modify any content without prior written consent from Kaia Skies.</p>
+
+      <h2>3. Nature of Services</h2>
+      <p>The content provided by Kaia Skies, including the free workbook, is for educational and informational purposes only. It does not constitute medical advice, psychological therapy, or clinical treatment. If you have a severe anxiety disorder or mental health condition, please consult a qualified healthcare professional.</p>
+
+      <h2>4. No Guarantees</h2>
+      <p>While the techniques shared are evidence-informed and have helped many people, we cannot guarantee specific outcomes. Results vary depending on individual circumstances, effort, and commitment.</p>
+
+      <h2>5. Third-Party Links</h2>
+      <p>This website may contain links to external services (including the workbook download platform). Kaia Skies is not responsible for the content, privacy practices, or availability of third-party websites.</p>
+
+      <h2>6. Intellectual Property</h2>
+      <p>All original content, branding, and materials are the intellectual property of Kaia Skies and are protected under applicable copyright law. Unauthorized use is prohibited.</p>
+
+      <h2>7. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by law, Kaia Skies shall not be liable for any indirect, incidental, or consequential damages arising from your use of this website or the workbook.</p>
+
+      <h2>8. Changes to Terms</h2>
+      <p>We reserve the right to update these Terms at any time. Continued use of the website after changes constitutes acceptance of the revised Terms.</p>
+
+      <h2>9. Contact</h2>
+      <p>For questions regarding these Terms, please contact us via the details provided in the <a href="legal.html">Legal Notice</a>.</p>
+    </div>
+
+    <!-- DEUTSCH -->
+    <div class="lang-de">
+      <h2>1. Annahme der Bedingungen</h2>
+      <p>Durch den Zugriff auf die Kaia Skies-Website und das Herunterladen des kostenlosen Workbooks „The Fearless Flyer" erklärst du dich mit diesen Allgemeinen Geschäftsbedingungen einverstanden. Falls du nicht zustimmst, nutze diese Website bitte nicht.</p>
+
+      <h2>2. Nutzung von Inhalten</h2>
+      <p>Alle auf dieser Website bereitgestellten Inhalte — einschließlich des Workbooks, Texte, Grafiken und Design — sind ausschließlich für den persönlichen, nicht-kommerziellen Gebrauch bestimmt. Vervielfältigung, Verteilung, Verkauf oder Veränderung von Inhalten ohne vorherige schriftliche Zustimmung von Kaia Skies sind untersagt.</p>
+
+      <h2>3. Art der Leistungen</h2>
+      <p>Die von Kaia Skies bereitgestellten Inhalte, einschließlich des kostenlosen Workbooks, dienen ausschließlich zu Bildungs- und Informationszwecken. Sie stellen keine medizinische Beratung, psychologische Therapie oder klinische Behandlung dar. Bei einer schwerwiegenden Angststörung oder psychischen Erkrankung wende dich bitte an eine qualifizierte Fachkraft.</p>
+
+      <h2>4. Keine Garantien</h2>
+      <p>Obwohl die vermittelten Techniken evidenzbasiert sind und vielen Menschen geholfen haben, können wir keine spezifischen Ergebnisse garantieren. Die Resultate variieren je nach individuellen Umständen, Aufwand und Engagement.</p>
+
+      <h2>5. Links zu Drittanbietern</h2>
+      <p>Diese Website kann Links zu externen Diensten enthalten (einschließlich der Workbook-Download-Plattform). Kaia Skies ist nicht verantwortlich für Inhalte, Datenschutzpraktiken oder Verfügbarkeit von Drittanbieter-Websites.</p>
+
+      <h2>6. Geistiges Eigentum</h2>
+      <p>Alle originären Inhalte, Marken und Materialien sind geistiges Eigentum von Kaia Skies und durch geltendes Urheberrecht geschützt. Unbefugte Nutzung ist untersagt.</p>
+
+      <h2>7. Haftungsbeschränkung</h2>
+      <p>Im größtmöglichen gesetzlich zulässigen Umfang haftet Kaia Skies nicht für indirekte, zufällige oder Folgeschäden, die aus der Nutzung dieser Website oder des Workbooks entstehen.</p>
+
+      <h2>8. Änderungen der AGB</h2>
+      <p>Wir behalten uns das Recht vor, diese AGB jederzeit zu aktualisieren. Die weitere Nutzung der Website nach Änderungen gilt als Zustimmung zu den überarbeiteten Bedingungen.</p>
+
+      <h2>9. Kontakt</h2>
+      <p>Bei Fragen zu diesen AGB kontaktiere uns bitte über die im <a href="legal.html">Impressum</a> angegebenen Angaben.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <nav aria-label="Legal pages">
+      <a href="index.html" data-i18n="footer.home">Home</a>
+      <a href="terms.html" aria-current="page" data-i18n="footer.terms">Terms &amp; Conditions</a>
+      <a href="legal.html" data-i18n="footer.legal">Legal Notice</a>
+      <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+    </nav>
+    <p style="margin-top:1rem;" data-i18n="footer.copy">&copy; 2025 Kaia Skies. All rights reserved.</p>
+  </footer>
+
+  <script src="lang.js"></script>
+</body>
+</html>
