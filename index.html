@@ -1,383 +1,1441 @@
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-58V16MCEYN"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaia Skies — The Fearless Flyer</title>
+  <meta name="description" content="Overcome your fear of flying with Kaia Skies. Download your free workbook 'The Fearless Flyer' and start your journey to the skies today." />
 
-// Only load analytics if cookies accepted
-var kaiaAnalyticsEnabled = false;
-function kaiaEnableAnalytics() {
-  if (!kaiaAnalyticsEnabled) {
-    kaiaAnalyticsEnabled = true;
-    gtag('config', 'G-58V16MCEYN');
-  }
-}
-</script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── DESIGN TOKENS ──────────────────────────────────────────────── */
+    :root {
+      --navy-950: #030B18;
+      --navy-900: #07152B;
+      --navy-800: #0D2247;
+      --navy-700: #133060;
+      --navy-600: #1A3F7A;
+      --gold-400: #E8C97A;
+      --gold-500: #C9A84C;
+      --gold-600: #A8882C;
+      --cream:    #F5F0E8;
+      --white:    #FFFFFF;
+      --text-muted: rgba(245,240,232,.55);
 
-<!-- ══════════════════════════════════════════
-     COOKIE BANNER
-══════════════════════════════════════════ -->
-<div id="kaia-cookie" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0F2235;border-top:1px solid rgba(200,151,58,0.4);padding:1.2rem 2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem;justify-content:space-between;box-shadow:0 -4px 30px rgba(0,0,0,0.4);">
-  <div style="flex:1;min-width:240px;">
-    <p style="font-family:'Lato',sans-serif;font-size:0.82rem;color:#8A9BB0;line-height:1.6;margin:0;">
-      🍪 Wir verwenden Cookies um die Nutzung unserer Website zu analysieren (Google Analytics). 
-      <a href="#kaia-datenschutz" onclick="document.getElementById('kaia-cookie').style.display='none'" style="color:#C8973A;text-decoration:underline;">Datenschutzerklärung</a>
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out:   cubic-bezier(0.4, 0, 0.2, 1);
+      --duration-fast: 200ms;
+      --duration-mid:  350ms;
+      --duration-slow: 600ms;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+
+      --shadow-gold: 0 0 40px rgba(201,168,76,.25);
+      --shadow-card: 0 8px 40px rgba(3,11,24,.5);
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy-950);
+      color: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ── SKIP LINK ──────────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -9999px; left: 1rem; z-index: 9999;
+      background: var(--gold-500); color: var(--navy-950);
+      padding: .5rem 1rem; border-radius: var(--radius-sm);
+      font-weight: 600; font-size: .875rem;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── COOKIE BANNER ──────────────────────────────────────────────── */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(13,34,71,.97);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(201,168,76,.2);
+      padding: 1.25rem 1.5rem;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 1rem;
+      transform: translateY(100%);
+      transition: transform var(--duration-slow) var(--ease-out-expo);
+    }
+    #cookie-banner.visible { transform: translateY(0); }
+    #cookie-banner.hidden  { display: none; }
+
+    .cookie-text {
+      flex: 1 1 260px;
+      font-size: .8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .cookie-text a { color: var(--gold-400); text-decoration: underline; text-underline-offset: 3px; }
+    .cookie-actions { display: flex; gap: .625rem; flex-shrink: 0; }
+
+    .btn-cookie-accept {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-950);
+      font-weight: 600; font-size: .8125rem;
+      padding: .5rem 1.25rem;
+      border-radius: var(--radius-sm);
+      transition: opacity var(--duration-fast), transform var(--duration-fast);
+      min-height: 44px;
+    }
+    .btn-cookie-accept:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-cookie-accept:active { transform: translateY(0); }
+
+    .btn-cookie-decline {
+      color: var(--text-muted);
+      font-size: .8125rem;
+      padding: .5rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: color var(--duration-fast);
+      min-height: 44px;
+    }
+    .btn-cookie-decline:hover { color: var(--cream); }
+
+    /* ── NAV ────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 1.25rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--duration-mid), padding var(--duration-mid);
+    }
+    nav.scrolled {
+      background: rgba(3,11,24,.9);
+      backdrop-filter: blur(24px);
+      padding: .875rem 2rem;
+      border-bottom: 1px solid rgba(201,168,76,.1);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: .06em;
+      color: var(--gold-400);
+    }
+    .nav-logo span { font-style: italic; }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,.5);
+      color: var(--gold-400);
+      font-size: .8125rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .5rem 1.25rem;
+      border-radius: 50px;
+      transition: background var(--duration-fast), border-color var(--duration-fast), color var(--duration-fast);
+      min-height: 44px;
+      display: flex; align-items: center;
+    }
+    .nav-cta:hover {
+      background: rgba(201,168,76,.12);
+      border-color: var(--gold-400);
+    }
+
+    /* ── LANGUAGE SWITCHER ──────────────────────────────────────────── */
+    .lang-switcher {
+      display: flex; align-items: center; gap: 2px;
+      margin-left: .75rem;
+    }
+    .lang-switcher [data-lang-btn] {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body);
+      font-size: .7rem; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(245,240,232,.3);
+      padding: .3rem .4rem;
+      border-radius: 4px;
+      transition: color var(--duration-fast), background var(--duration-fast);
+      min-height: 32px; min-width: 32px;
+    }
+    .lang-switcher [data-lang-btn].active {
+      color: var(--gold-400);
+      background: rgba(201,168,76,.08);
+    }
+    .lang-switcher [data-lang-btn]:hover:not(.active) {
+      color: var(--cream);
+    }
+    .lang-sep {
+      color: rgba(201,168,76,.2); font-size: .55rem;
+      pointer-events: none; user-select: none;
+    }
+
+    /* CSS-based language content toggle (legal pages) */
+    html[lang="en"] .lang-de { display: none !important; }
+    html[lang="de"] .lang-en { display: none !important; }
+
+    /* ── CURSOR GLOW ────────────────────────────────────────────────── */
+    #cursor-glow {
+      position: fixed;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle,
+        rgba(201,168,76,.07) 0%,
+        rgba(201,168,76,.025) 45%,
+        transparent 70%);
+      opacity: 0;
+      transition: opacity 700ms ease;
+      will-change: transform, opacity;
+    }
+    #cursor-glow.active { opacity: 1; }
+
+    /* ── VIDEO BACKGROUND ───────────────────────────────────────────── */
+    #bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    #bg-video.loaded { opacity: 1; }
+
+    /* Dark cinematic overlay over video */
+    #bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg,
+          rgba(3,11,24,.72) 0%,
+          rgba(3,11,24,.55) 40%,
+          rgba(3,11,24,.68) 75%,
+          rgba(3,11,24,.88) 100%);
+    }
+
+    /* ── STAR CANVAS ────────────────────────────────────────────────── */
+    #star-canvas {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(19,48,96,.7) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 50% 55%, rgba(201,168,76,.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Floating cloud orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orb-drift linear infinite;
+    }
+    .orb-1 {
+      width: clamp(200px, 40vw, 500px);
+      height: clamp(200px, 40vw, 500px);
+      background: radial-gradient(circle, rgba(26,63,122,.35) 0%, transparent 70%);
+      top: -10%; left: -5%;
+      animation-duration: 28s;
+    }
+    .orb-2 {
+      width: clamp(180px, 35vw, 420px);
+      height: clamp(180px, 35vw, 420px);
+      background: radial-gradient(circle, rgba(201,168,76,.07) 0%, transparent 70%);
+      top: 20%; right: -8%;
+      animation-duration: 36s;
+      animation-delay: -14s;
+    }
+    .orb-3 {
+      width: clamp(150px, 28vw, 360px);
+      height: clamp(150px, 28vw, 360px);
+      background: radial-gradient(circle, rgba(19,48,96,.25) 0%, transparent 70%);
+      bottom: 5%; left: 20%;
+      animation-duration: 22s;
+      animation-delay: -8s;
+    }
+
+    @keyframes orb-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      33%  { transform: translate(18px, -22px) scale(1.04); }
+      66%  { transform: translate(-12px, 16px) scale(.97); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .75rem; font-weight: 500;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold-400);
+      margin-bottom: 1.75rem;
+      opacity: 0; transform: translateY(20px);
+      animation: fade-up var(--duration-slow) var(--ease-out-expo) .3s forwards;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block; height: 1px; width: 32px;
+      background: linear-gradient(90deg, transparent, var(--gold-500));
+    }
+    .hero-eyebrow::after { background: linear-gradient(90deg, var(--gold-500), transparent); }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -.01em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      opacity: 0; transform: translateY(28px);
+      animation: fade-up var(--duration-slow) var(--ease-out-expo) .5s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      background: linear-gradient(
+        120deg,
+        var(--gold-500) 0%,
+        #F5E09A 40%,
+        var(--gold-400) 50%,
+        #fff8dc 55%,
+        var(--gold-400) 60%,
+        var(--gold-500) 100%
+      );
+      background-size: 250% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gold-shimmer 8s ease-in-out 2s infinite;
+    }
+
+    @keyframes gold-shimmer {
+      0%   { background-position: 200% 0; }
+      40%  { background-position: -20% 0; }
+      100% { background-position: -20% 0; }
+    }
+
+    .hero-sub {
+      font-size: clamp(.9375rem, 2.2vw, 1.125rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 2.75rem;
+      line-height: 1.7;
+      opacity: 0; transform: translateY(20px);
+      animation: fade-up var(--duration-slow) var(--ease-out-expo) .7s forwards;
+    }
+
+    .hero-cta-group {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: .875rem;
+      opacity: 0; transform: translateY(20px);
+      animation: fade-up var(--duration-slow) var(--ease-out-expo) .9s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .625rem;
+      background: linear-gradient(135deg, var(--gold-600), var(--gold-400), var(--gold-500));
+      background-size: 200% 200%;
+      color: var(--navy-950);
+      font-weight: 600; font-size: 1rem;
+      letter-spacing: .03em;
+      padding: .875rem 2.25rem;
+      border-radius: 50px;
+      min-height: 56px;
+      transition: transform var(--duration-fast), box-shadow var(--duration-fast), background-position var(--duration-mid);
+      box-shadow: 0 4px 24px rgba(201,168,76,.3), 0 1px 0 rgba(255,255,255,.15) inset;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background var(--duration-fast);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(201,168,76,.45);
+      background-position: right center;
+    }
+    .btn-primary:hover::after { background: rgba(255,255,255,.06); }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      color: var(--cream);
+      font-size: .9375rem;
+      font-weight: 400;
+      padding: .875rem 1.5rem;
+      min-height: 56px;
+      opacity: .7;
+      transition: opacity var(--duration-fast);
+    }
+    .btn-secondary:hover { opacity: 1; }
+
+    .hero-scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .375rem;
+      opacity: 0;
+      animation: fade-up var(--duration-slow) var(--ease-out-expo) 1.4s forwards;
+      z-index: 2;
+    }
+    .hero-scroll-hint span {
+      font-size: .6875rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold-500), transparent);
+      animation: scroll-line 2s ease-in-out 2s infinite;
+    }
+    @keyframes scroll-line {
+      0%, 100% { opacity: .3; transform: scaleY(1); transform-origin: top; }
+      50%       { opacity: 1;  transform: scaleY(.6); transform-origin: top; }
+    }
+
+    /* ── SECTIONS COMMON ────────────────────────────────────────────── */
+    section {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+    }
+
+    .section-label {
+      font-size: .6875rem; font-weight: 500;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold-500);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+    .section-title em {
+      font-style: italic; color: var(--gold-400);
+    }
+
+    .section-lead {
+      font-size: clamp(.9375rem, 2vw, 1.0625rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.75;
+    }
+
+    /* reveal-on-scroll */
+    .reveal {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity var(--duration-slow) var(--ease-out-expo),
+                  transform var(--duration-slow) var(--ease-out-expo);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 100ms; }
+    .reveal-delay-2 { transition-delay: 200ms; }
+    .reveal-delay-3 { transition-delay: 300ms; }
+    .reveal-delay-4 { transition-delay: 400ms; }
+
+    /* ── LINE REVEAL — per-line clip animation ──────────────────────── */
+    .line-reveal {
+      overflow: hidden;
+    }
+    .line-reveal .line-inner {
+      display: block;
+      transform: translateY(105%);
+      opacity: 0;
+      transition: transform 0.7s var(--ease-out-expo),
+                  opacity   0.7s var(--ease-out-expo);
+    }
+    .line-reveal.visible .line-inner {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .line-reveal.visible .line-inner:nth-child(2) { transition-delay: 120ms; }
+    .line-reveal.visible .line-inner:nth-child(3) { transition-delay: 240ms; }
+
+    /* ── COUNTER — number count-up ──────────────────────────────────── */
+    .count-up {
+      display: inline-block;
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────────────────── */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,.2) 30%, rgba(201,168,76,.2) 70%, transparent 100%);
+    }
+
+    /* ── FACTS SECTION ──────────────────────────────────────────────── */
+    #facts {
+      background: rgba(3,11,24,.55);
+      backdrop-filter: blur(2px);
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3.5rem;
+    }
+
+    .fact-card {
+      background: rgba(13,34,71,.45);
+      border: 1px solid rgba(201,168,76,.12);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--duration-mid) var(--ease-out-expo),
+                  border-color var(--duration-mid),
+                  box-shadow var(--duration-mid);
+    }
+    .fact-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.3), transparent);
+      opacity: 0;
+      transition: opacity var(--duration-mid);
+    }
+    .fact-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,168,76,.25);
+      box-shadow: var(--shadow-card), 0 0 0 1px rgba(201,168,76,.06);
+    }
+    .fact-card:hover::before { opacity: 1; }
+
+    .fact-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--gold-400);
+      line-height: 1;
+      margin-bottom: .75rem;
+      letter-spacing: -.02em;
+    }
+    .fact-title {
+      font-size: .9375rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: .5rem;
+      line-height: 1.4;
+    }
+    .fact-body {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+    .fact-icon {
+      position: absolute; bottom: 1.5rem; right: 1.5rem;
+      width: 32px; height: 32px;
+      opacity: .15;
+    }
+
+    /* ── HOW IT WORKS ───────────────────────────────────────────────── */
+    #how {
+      background: rgba(7,21,43,.6);
+      backdrop-filter: blur(1px);
+    }
+
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0;
+      margin-top: 4rem;
+      position: relative;
+    }
+
+    /* Connecting line between steps on desktop */
+    .steps-container::after {
+      content: '';
+      position: absolute;
+      top: 3.25rem;
+      left: calc(100% / 6);
+      width: calc(100% * 2 / 3);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,168,76,.25), rgba(201,168,76,.25), transparent);
+      pointer-events: none;
+    }
+
+    .step {
+      padding: 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(13,34,71,.8);
+      border: 1px solid rgba(201,168,76,.3);
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 400;
+      color: var(--gold-400);
+      margin: 0 auto 1.5rem;
+      position: relative; z-index: 1;
+      transition: background var(--duration-mid), border-color var(--duration-mid), box-shadow var(--duration-mid);
+    }
+    .step:hover .step-number {
+      background: rgba(26,63,122,.6);
+      border-color: var(--gold-400);
+      box-shadow: 0 0 24px rgba(201,168,76,.2);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.375rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: .625rem;
+      letter-spacing: .01em;
+    }
+    .step-body {
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── WORKBOOK CTA SECTION ───────────────────────────────────────── */
+    #workbook {
+      background: rgba(3,11,24,.65);
+      backdrop-filter: blur(3px);
+      padding: 0;
+    }
+
+    .workbook-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .workbook-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Abstract book illustration using CSS */
+    .book-mockup {
+      width: clamp(220px, 36vw, 320px);
+      aspect-ratio: 3/4;
+      position: relative;
+    }
+
+    .book-cover {
+      width: 100%; height: 100%;
+      background: linear-gradient(150deg, var(--navy-700) 0%, var(--navy-800) 60%, var(--navy-900) 100%);
+      border-radius: var(--radius-md) var(--radius-lg) var(--radius-lg) var(--radius-md);
+      border: 1px solid rgba(201,168,76,.2);
+      box-shadow:
+        var(--shadow-card),
+        -6px 12px 40px rgba(3,11,24,.6),
+        0 0 60px rgba(201,168,76,.08);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2.5rem 2rem;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+      animation: book-float 6s ease-in-out infinite;
+    }
+
+    @keyframes book-float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50%       { transform: translateY(-12px) rotate(-1deg); }
+    }
+
+    .book-cover::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,76,.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(26,63,122,.2) 0%, transparent 60%);
+    }
+
+    .book-star {
+      width: 48px; height: 48px; position: relative; z-index: 1;
+    }
+    .book-star svg { width: 100%; height: 100%; }
+
+    .book-title-text {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--gold-400);
+      text-align: center;
+      letter-spacing: .04em;
+      line-height: 1.2;
+      position: relative; z-index: 1;
+    }
+    .book-title-text span {
+      display: block;
+      font-size: .75rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: .5rem;
+      letter-spacing: .08em;
+    }
+
+    .book-lines {
+      width: 100%; position: relative; z-index: 1;
+    }
+    .book-lines div {
+      height: 1px; margin: .4rem 0;
+      background: rgba(201,168,76,.2);
+      border-radius: 2px;
+    }
+    .book-lines div:nth-child(2) { width: 80%; }
+    .book-lines div:nth-child(3) { width: 90%; }
+    .book-lines div:nth-child(4) { width: 65%; }
+
+    /* Glow ring behind book */
+    .book-glow {
+      position: absolute;
+      width: 120%; height: 120%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .workbook-copy { position: relative; z-index: 2; }
+    .workbook-copy .section-title { margin-bottom: 1rem; }
+
+    .workbook-benefits {
+      list-style: none;
+      margin: 1.75rem 0 2.5rem;
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+    .workbook-benefits li {
+      display: flex; align-items: flex-start; gap: .75rem;
+      font-size: .9375rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .workbook-benefits li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      margin-top: .1rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Ccircle cx='8' cy='8' r='7.5' stroke='%23C9A84C' stroke-opacity='.4'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    .workbook-free-badge {
+      display: inline-flex; align-items: center; gap: .375rem;
+      background: rgba(201,168,76,.1);
+      border: 1px solid rgba(201,168,76,.25);
+      color: var(--gold-400);
+      font-size: .75rem; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .3rem .875rem;
+      border-radius: 50px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 2;
+      background: var(--navy-950);
+      border-top: 1px solid rgba(201,168,76,.1);
+      padding: 2.5rem 1.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 1.25rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--gold-400);
+      letter-spacing: .06em;
+    }
+    .footer-logo em { font-style: italic; }
+
+    .footer-legal {
+      display: flex; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-legal a {
+      font-size: .8rem;
+      color: var(--text-muted);
+      letter-spacing: .04em;
+      transition: color var(--duration-fast);
+    }
+    .footer-legal a:hover { color: var(--gold-400); }
+
+    .footer-copy {
+      width: 100%;
+      text-align: center;
+      font-size: .75rem;
+      color: rgba(245,240,232,.25);
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201,168,76,.06);
+    }
+    .footer-copy a { color: rgba(245,240,232,.4); }
+    .footer-copy a:hover { color: var(--text-muted); }
+
+    /* Full-width legal strip at the very bottom */
+    .footer-legal-bar {
+      width: 100%;
+      border-top: 1px solid rgba(201,168,76,.08);
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      text-align: center;
+    }
+    /* Override the global nav fixed positioning for footer nav */
+    .footer-legal-bar nav,
+    footer nav {
+      position: static !important;
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
+      backdrop-filter: none !important;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; align-items: center;
+      gap: .75rem 1.25rem;
+    }
+    .footer-legal-bar a {
+      font-size: .75rem;
+      letter-spacing: .07em;
+      color: rgba(245,240,232,.3);
+      text-transform: uppercase;
+      transition: color var(--duration-fast);
+    }
+    .footer-legal-bar a:hover { color: var(--gold-400); }
+    .footer-legal-bar span { color: rgba(201,168,76,.2); font-size: .625rem; }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────────────── */
+    @keyframes fade-up {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .workbook-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+      }
+      .workbook-visual { justify-content: center; }
+      .workbook-benefits li { text-align: left; }
+      .section-lead { margin: 0 auto; }
+      .steps-container::after { display: none; }
+      .step { padding: 2rem 1.5rem; }
+      nav { padding: 1rem 1.25rem; }
+      nav.scrolled { padding: .75rem 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta-group { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; max-width: 300px; justify-content: center; }
+    }
+
+    /* ── REDUCED MOTION ─────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .orb, .book-cover { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- CURSOR GLOW -->
+  <div id="cursor-glow" aria-hidden="true"></div>
+
+  <!-- BACKGROUND VIDEO -->
+  <video
+    id="bg-video"
+    src="hero-scrub.mp4"
+    muted
+    playsinline
+    preload="auto"
+    aria-hidden="true"
+  ></video>
+  <div id="bg-overlay" aria-hidden="true"></div>
+
+  <!-- STAR CANVAS -->
+  <canvas id="star-canvas" aria-hidden="true"></canvas>
+
+  <!-- COOKIE BANNER -->
+  <div id="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
+    <p class="cookie-text" data-i18n-html="cookie.text">
+      We use cookies to understand how visitors experience our site via Google Analytics.
+      No personal data is sold. See our <a href="privacy.html">Privacy Policy</a> for details.
     </p>
+    <div class="cookie-actions">
+      <button class="btn-cookie-decline" id="cookie-decline" data-i18n="cookie.decline">Decline</button>
+      <button class="btn-cookie-accept" id="cookie-accept" data-i18n="cookie.accept">Accept Cookies</button>
+    </div>
   </div>
-  <div style="display:flex;gap:0.7rem;flex-shrink:0;">
-    <button onclick="kaiaCookieDecline()" style="background:transparent;color:#8A9BB0;border:1px solid rgba(138,155,176,0.3);border-radius:3px;padding:0.55rem 1.2rem;font-family:'Lato',sans-serif;font-size:0.8rem;cursor:pointer;">Ablehnen</button>
-    <button onclick="kaiaCookieAccept()" style="background:linear-gradient(135deg,#C8973A,#E8B85A);color:#0B1829;border:none;border-radius:3px;padding:0.55rem 1.4rem;font-family:'Cinzel',serif;font-size:0.72rem;font-weight:600;letter-spacing:0.1em;cursor:pointer;">Akzeptieren</button>
-  </div>
-</div>
 
-<!-- ══════════════════════════════════════════
-     MAIN WRAPPER
-══════════════════════════════════════════ -->
-<div id="kaia-wrap" style="background:#0B1829;color:#FFFFFF;font-family:'Lato',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;">
+  <!-- NAVIGATION -->
+  <nav id="nav" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo"><em>Kaia</em> Skies</a>
+    <div style="display:flex;align-items:center;gap:.5rem;">
+      <a href="https://kaia-skies-coach.systeme.io/e91167a7" target="_blank" rel="noopener noreferrer"
+         class="nav-cta" data-i18n-aria="nav.cta">
+        <span data-i18n="nav.cta">Free Workbook</span>
+      </a>
+      <div class="lang-switcher" aria-label="Language switcher">
+        <button data-lang-btn="en" aria-label="Switch to English">EN</button>
+        <span class="lang-sep" aria-hidden="true">|</span>
+        <button data-lang-btn="de" aria-label="Sprache Deutsch">DE</button>
+      </div>
+    </div>
+  </nav>
 
-  <!-- ── HERO ── -->
-  <div style="background:linear-gradient(135deg,#0B1829 60%,#0F2235 100%);padding:4rem 1.5rem;">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:3rem;align-items:center;">
+  <main id="main">
 
-      <div style="flex:1;min-width:280px;">
-        <div style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:#C8973A;margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;">
-          <span style="width:36px;height:1px;background:#C8973A;display:inline-block;"></span>
-          Guided by an AI Fear of Flying Coach
-        </div>
-        <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,4.8rem);font-weight:300;line-height:1.1;margin-bottom:1.2rem;">
-          Stop Dreading.<br><span style="font-style:italic;color:#E8B85A;">Start Flying.</span>
+    <!-- HERO -->
+    <section id="hero" aria-label="Hero">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="orb orb-2" aria-hidden="true"></div>
+      <div class="orb orb-3" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="hero-eyebrow" data-i18n="hero.eyebrow">Fear of Flying Coaching</p>
+
+        <h1 class="hero-title" data-i18n-html="hero.title">
+          Your journey to the<br><em>fearless skies</em><br>starts here
         </h1>
-        <p style="font-size:1rem;color:#8A9BB0;max-width:480px;margin-bottom:2rem;line-height:1.85;">
-          Evidence-based tools drawn from real aviation expertise and cognitive behavioural therapy — delivered through Kaia, your AI-powered fear of flying guide.
+
+        <p class="hero-sub" data-i18n="hero.sub">
+          You deserve to travel without anxiety holding you back. Discover a gentle, evidence-based approach that transforms fear into freedom — one flight at a time.
         </p>
-        <div style="display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:2.2rem;">
-          <span style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#8A9BB0;"><span style="width:5px;height:5px;border-radius:50%;background:#C8973A;display:inline-block;"></span>CBT-Based Techniques</span>
-          <span style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#8A9BB0;"><span style="width:5px;height:5px;border-radius:50%;background:#C8973A;display:inline-block;"></span>Real Aviation Insights</span>
-          <span style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#8A9BB0;"><span style="width:5px;height:5px;border-radius:50%;background:#C8973A;display:inline-block;"></span>AI-Powered Guide</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
-          <a href="#kaia-free" style="display:inline-flex;align-items:center;gap:0.6rem;background:linear-gradient(135deg,#C8973A,#E8B85A);color:#0B1829;padding:0.95rem 2rem;border-radius:3px;font-family:'Cinzel',serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 28px rgba(200,151,58,0.3);">✦ Get the Free Workbook</a>
-          <a href="#kaia-premium" style="display:inline-flex;align-items:center;gap:0.5rem;color:#8A9BB0;padding:0.95rem 1.5rem;border-radius:3px;font-size:0.85rem;border:1px solid rgba(138,155,176,0.3);text-decoration:none;">View Premium →</a>
+
+        <div class="hero-cta-group">
+          <a href="https://kaia-skies-coach.systeme.io/e91167a7"
+             target="_blank" rel="noopener noreferrer"
+             class="btn-primary" data-i18n-aria="hero.cta">
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M9 1v10M5 7l4 4 4-4M2 13v2a2 2 0 002 2h10a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-i18n="hero.cta">Get The Free Workbook</span>
+          </a>
+          <a href="#how" class="btn-secondary" data-i18n-aria="hero.how">
+            <span data-i18n="hero.how">How it works ↓</span>
+          </a>
         </div>
       </div>
 
-      <div style="flex:0 0 360px;min-width:260px;position:relative;">
-        <div style="border:2px solid #C8973A;border-radius:4px;overflow:hidden;position:relative;">
-          <img src="Sarah_zu_Kaia_2K_202605111421.jpeg" alt="Kaia – AI Fear of Flying Guide" style="width:100%;display:block;object-fit:cover;height:460px;filter:brightness(0.9) saturate(0.88);" onerror="this.style.minHeight='460px';this.style.background='#162D45';">
-          <div style="position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(11,24,41,0.92);border:1px solid rgba(200,151,58,0.3);border-radius:3px;padding:0.85rem 1rem;display:flex;align-items:center;gap:0.8rem;">
-            <img src="Name_tag__Kaia_2K_202605111421.jpeg" alt="Kaia" style="width:40px;height:40px;border-radius:50%;border:2px solid #C8973A;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">
-            <div>
-              <div style="font-family:'Cinzel',serif;font-size:0.8rem;color:#C8973A;letter-spacing:0.12em;">KAIA <span style="font-size:0.6rem;background:rgba(200,151,58,0.15);border:1px solid rgba(200,151,58,0.4);border-radius:2px;padding:0.1rem 0.4rem;letter-spacing:0.08em;">AI</span></div>
-              <div style="font-size:0.72rem;color:#8A9BB0;margin-top:0.1rem;">AI-Powered Fear of Flying Coach</div>
+      <div class="hero-scroll-hint" aria-hidden="true">
+        <div class="scroll-line"></div>
+        <span data-i18n="hero.scroll">Scroll</span>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- FACTS ABOUT FEAR OF FLYING -->
+    <section id="facts" aria-labelledby="facts-heading">
+      <div class="section-inner">
+        <div class="reveal">
+          <span class="section-label" data-i18n="facts.label">You Are Not Alone</span>
+          <h2 class="section-title line-reveal" id="facts-heading">
+            <span class="line-inner" data-i18n="facts.titleL1">Fear of flying is</span>
+            <span class="line-inner" data-i18n-html="facts.titleL2"><em>more common</em> than you think</span>
+          </h2>
+          <p class="section-lead" data-i18n="facts.lead">
+            Millions of people quietly endure anxiety before and during flights. Understanding the science behind your fear is the first step toward releasing it.
+          </p>
+        </div>
+
+        <div class="facts-grid">
+          <div class="fact-card reveal reveal-delay-1">
+            <div class="fact-number"><span class="count-up" data-target="25" data-suffix="%">0%</span></div>
+            <h3 class="fact-title" data-i18n="facts.c1title">of all adults experience flight anxiety</h3>
+            <p class="fact-body" data-i18n="facts.c1body">An estimated 1 in 4 people feel significant fear when flying — making it one of the most widespread phobias worldwide.</p>
+            <svg class="fact-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M4 20L12 12L18 18L28 6" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div class="fact-card reveal reveal-delay-2">
+            <div class="fact-number"><span class="count-up" data-target="40" data-suffix="×">0×</span></div>
+            <h3 class="fact-title" data-i18n="facts.c2title">safer than driving your car</h3>
+            <p class="fact-body" data-i18n="facts.c2body">Flying is statistically one of the safest forms of transport ever invented — yet our brains are wired to feel the opposite.</p>
+            <svg class="fact-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M6 24L16 4l10 20H6z" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="fact-card reveal reveal-delay-3">
+            <div class="fact-number"><span class="count-up" data-target="90" data-suffix="%">0%</span></div>
+            <h3 class="fact-title" data-i18n="facts.c3title">improvement rate with the right approach</h3>
+            <p class="fact-body" data-i18n="facts.c3body">Cognitive-behavioural and exposure-based techniques have strong evidence behind them — most people see profound relief within weeks.</p>
+            <svg class="fact-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <circle cx="16" cy="16" r="11" stroke="#C9A84C" stroke-width="2"/>
+              <path d="M11 16l3.5 3.5L21 11" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div class="fact-card reveal reveal-delay-4">
+            <div class="fact-number">∞</div>
+            <h3 class="fact-title" data-i18n="facts.c4title">destinations waiting for you</h3>
+            <p class="fact-body" data-i18n="facts.c4body">Every place you've ever dreamed of visiting is still reachable. Your fear is not permanent — it's a pattern, and patterns can change.</p>
+            <svg class="fact-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" stroke="#C9A84C" stroke-width="2"/>
+              <path d="M4 16h24M16 4c-3 4-5 8-5 12s2 8 5 12M16 4c3 4 5 8 5 12s-2 8-5 12" stroke="#C9A84C" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" aria-labelledby="how-heading">
+      <div class="section-inner">
+        <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto;">
+          <span class="section-label" data-i18n="how.label">The Method</span>
+          <h2 class="section-title line-reveal" id="how-heading">
+            <span class="line-inner" data-i18n="how.titleL1">Three steps to</span>
+            <span class="line-inner" data-i18n-html="how.titleL2"><em>taking flight</em></span>
+          </h2>
+          <p class="section-lead" style="margin:0 auto;" data-i18n="how.lead">
+            The Fearless Flyer workbook guides you through a proven sequence — gentle, personal, and entirely at your own pace.
+          </p>
+        </div>
+
+        <div class="steps-container">
+          <div class="step reveal reveal-delay-1">
+            <div class="step-number">01</div>
+            <h3 class="step-title" data-i18n="how.s1title">Understand Your Fear</h3>
+            <p class="step-body" data-i18n="how.s1body">
+              Explore the root of your anxiety with guided reflection. Your fear has a story — and once you hear it, it begins to lose its power.
+            </p>
+          </div>
+
+          <div class="step reveal reveal-delay-2">
+            <div class="step-number">02</div>
+            <h3 class="step-title" data-i18n="how.s2title">Rewire Your Response</h3>
+            <p class="step-body" data-i18n="how.s2body">
+              Use science-backed techniques to gently shift how your mind and body respond to flight triggers — before, during, and after.
+            </p>
+          </div>
+
+          <div class="step reveal reveal-delay-3">
+            <div class="step-number">03</div>
+            <h3 class="step-title" data-i18n="how.s3title">Take Your Flight</h3>
+            <p class="step-body" data-i18n="how.s3body">
+              Board with new tools, a calmer nervous system, and the quiet confidence that you have everything you need to fly freely.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKBOOK CTA -->
+    <section id="workbook" aria-labelledby="workbook-heading">
+      <div class="workbook-inner">
+        <div class="workbook-visual reveal">
+          <div class="book-glow" aria-hidden="true"></div>
+          <div class="book-mockup" aria-hidden="true">
+            <div class="book-cover">
+              <div class="book-star">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 4L27.5 17H41L30.5 25L34 38L24 30L14 38L17.5 25L7 17H20.5L24 4Z"
+                    fill="rgba(201,168,76,.15)" stroke="rgba(201,168,76,.6)" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="book-title-text">
+                The Fearless<br>Flyer
+                <span data-i18n="wb.bookSub">A Workbook by Kaia Skies</span>
+              </div>
+              <div class="book-lines">
+                <div></div><div></div><div></div><div></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
-  </div>
-
-  <!-- ── TRUST BAR ── -->
-  <div style="border-top:1px solid rgba(200,151,58,0.25);border-bottom:1px solid rgba(200,151,58,0.25);padding:1.6rem 1.5rem;background:#0F2235;">
-    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:3rem;align-items:center;">
-      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#C8973A;line-height:1;">1 in 4</div><div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#8A9BB0;margin-top:0.2rem;">People Fear Flying</div></div>
-      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#C8973A;line-height:1;">100%</div><div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#8A9BB0;margin-top:0.2rem;">Evidence-Based</div></div>
-      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#C8973A;line-height:1;">AI</div><div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#8A9BB0;margin-top:0.2rem;">Powered Guide</div></div>
-      <div style="text-align:center;"><div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#C8973A;line-height:1;">Free</div><div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#8A9BB0;margin-top:0.2rem;">To Get Started</div></div>
-    </div>
-  </div>
-
-  <!-- ── ABOUT KAIA ── -->
-  <div style="background:#0F2235;padding:5rem 1.5rem;">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:4rem;align-items:center;">
-
-      <div style="flex:0 0 340px;min-width:240px;position:relative;">
-        <div style="position:absolute;top:-10px;left:-10px;right:10px;bottom:10px;border:1px solid rgba(200,151,58,0.25);border-radius:3px;"></div>
-        <img src="A_kind_female_flight_attendant_202605111422.jpeg" alt="Kaia AI Guide" style="width:100%;border-radius:3px;display:block;object-fit:cover;height:440px;position:relative;filter:brightness(0.88) saturate(0.85);" onerror="this.style.background='#162D45';this.style.minHeight='440px'">
-        <!-- AI Badge -->
-        <div style="position:absolute;top:1rem;right:1rem;background:rgba(11,24,41,0.9);border:1px solid rgba(200,151,58,0.5);border-radius:3px;padding:0.35rem 0.8rem;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.2em;color:#C8973A;">✦ AI CHARACTER</div>
-      </div>
-
-      <div style="flex:1;min-width:260px;">
-        <div style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:#C8973A;margin-bottom:0.7rem;">Meet Your Guide</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;line-height:1.2;margin-bottom:1rem;">Hi, I'm <span style="color:#E8B85A;">Kaia.</span></h2>
-        <div style="width:70px;height:2px;background:linear-gradient(90deg,transparent,#C8973A,transparent);margin-bottom:1.3rem;"></div>
-
-        <!-- Subtle AI disclosure -->
-        <div style="background:rgba(200,151,58,0.07);border:1px solid rgba(200,151,58,0.2);border-radius:3px;padding:0.7rem 1rem;margin-bottom:1.3rem;display:flex;align-items:flex-start;gap:0.6rem;">
-          <span style="color:#C8973A;font-size:0.8rem;flex-shrink:0;margin-top:0.1rem;">ℹ</span>
-          <p style="font-size:0.78rem;color:#8A9BB0;line-height:1.6;margin:0;">Kaia is an AI-created character. The workbook content is developed from real aviation expertise and evidence-based psychology.</p>
-        </div>
-
-        <p style="color:#8A9BB0;margin-bottom:1rem;font-size:0.95rem;line-height:1.85;">I was created to be the guide that nervous flyers deserve — someone with deep knowledge of aviation, psychology, and the art of staying calm at 35,000 feet.</p>
-        <p style="color:#8A9BB0;margin-bottom:1rem;font-size:0.95rem;line-height:1.85;">The techniques in this workbook are drawn from Cognitive Behavioural Therapy and real cabin crew experience. They work — whether your guide is human or AI.</p>
-        <div style="border-left:2px solid #C8973A;padding:0.9rem 1.3rem;margin:1.6rem 0;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:#FAF4EA;line-height:1.6;">"Fear of flying is one of the most treatable anxieties there is. You just need the right tools — and a little courage to begin."</div>
-        <a href="#kaia-free" style="display:inline-flex;align-items:center;gap:0.6rem;background:linear-gradient(135deg,#C8973A,#E8B85A);color:#0B1829;padding:0.95rem 2rem;border-radius:3px;font-family:'Cinzel',serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;">✦ Download Free Workbook</a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── FREE WORKBOOK ── -->
-  <div id="kaia-free" style="background:linear-gradient(180deg,#0B1829 0%,#0F2235 100%);padding:5rem 1.5rem;">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:4rem;align-items:center;">
-
-      <div style="flex:1;min-width:260px;">
-        <div style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:#C8973A;margin-bottom:0.7rem;">Start Here — No Cost</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;line-height:1.2;margin-bottom:1rem;">The Free<br><span style="color:#E8B85A;">Fear of Flying</span><br>Workbook</h2>
-        <div style="width:70px;height:2px;background:linear-gradient(90deg,transparent,#C8973A,transparent);margin-bottom:1.3rem;"></div>
-        <p style="color:#8A9BB0;margin-bottom:1rem;line-height:1.85;">A 10-page evidence-based starter guide to help you understand your fear, rate your anxiety triggers, and begin using proven calming techniques before your next flight.</p>
-
-        <!-- Placeholder for Systeme.io form -->
-        <div id="kaia-form-placeholder" style="margin-top:2rem;">
-          <div style="display:flex;flex-wrap:wrap;gap:0;margin-bottom:0.7rem;">
-            <input id="kaiaEmail" type="email" placeholder="Your email address" style="flex:1;min-width:180px;background:rgba(255,255,255,0.05);border:1px solid rgba(200,151,58,0.3);border-right:none;border-radius:3px 0 0 3px;padding:0.88rem 1rem;color:#FFFFFF;font-family:'Lato',sans-serif;font-size:0.88rem;outline:none;">
-            <button onclick="kaiaDownload()" style="background:linear-gradient(135deg,#C8973A,#E8B85A);color:#0B1829;border:none;border-radius:0 3px 3px 0;padding:0.88rem 1.3rem;font-family:'Cinzel',serif;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;cursor:pointer;white-space:nowrap;">GET IT FREE</button>
+        <div class="workbook-copy reveal reveal-delay-2">
+          <div class="workbook-free-badge">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M5 1L6.12 3.72L9 4.05L7 6L7.56 9L5 7.5L2.44 9L3 6L1 4.05L3.88 3.72L5 1Z"
+                fill="currentColor"/>
+            </svg>
+            <span data-i18n="wb.badge">100% Free</span>
           </div>
-          <p style="font-size:0.73rem;color:#8A9BB0;">✦ Instant download &nbsp;·&nbsp; No spam, ever &nbsp;·&nbsp; Unsubscribe anytime</p>
-        </div>
-        <!-- END Systeme.io placeholder -->
 
-      </div>
+          <h2 class="section-title line-reveal" id="workbook-heading">
+            <span class="line-inner" data-i18n-html="wb.titleL1">Your <em>free workbook</em></span>
+            <span class="line-inner" data-i18n="wb.titleL2">is waiting</span>
+          </h2>
 
-      <div style="flex:0 0 360px;min-width:260px;">
-        <div style="background:linear-gradient(135deg,#162D45,#0F2235);border:1px solid rgba(200,151,58,0.25);border-radius:4px;padding:2.2rem;box-shadow:0 30px 70px rgba(0,0,0,0.4);position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8973A,#E8B85A,#C8973A);"></div>
-          <div style="font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:#C8973A;margin-bottom:1.5rem;">Free Edition · Instant Download</div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;line-height:1.2;margin-bottom:0.4rem;">Fear of Flying<br><span style="color:#E8B85A;">Workbook</span></h3>
-          <p style="font-size:0.78rem;color:#8A9BB0;letter-spacing:0.07em;margin-bottom:1.4rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(200,151,58,0.15);">Guided by Kaia · AI Fear of Flying Coach</p>
-          <ul style="list-style:none;margin-bottom:1.6rem;">
-            <li style="font-size:0.85rem;color:#8A9BB0;padding:0.4rem 0;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid rgba(200,151,58,0.07);"><span style="color:#C8973A;font-size:0.55rem;">✦</span>Understanding your fear &amp; triggers</li>
-            <li style="font-size:0.85rem;color:#8A9BB0;padding:0.4rem 0;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid rgba(200,151,58,0.07);"><span style="color:#C8973A;font-size:0.55rem;">✦</span>Personal anxiety profile scales</li>
-            <li style="font-size:0.85rem;color:#8A9BB0;padding:0.4rem 0;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid rgba(200,151,58,0.07);"><span style="color:#C8973A;font-size:0.55rem;">✦</span>The 4-7-8 breathing method</li>
-            <li style="font-size:0.85rem;color:#8A9BB0;padding:0.4rem 0;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid rgba(200,151,58,0.07);"><span style="color:#C8973A;font-size:0.55rem;">✦</span>Thought-challenge exercise (CBT)</li>
-            <li style="font-size:0.85rem;color:#8A9BB0;padding:0.4rem 0;display:flex;align-items:center;gap:0.6rem;border-bottom:1px solid rgba(200,151,58,0.07);"><span style="color:#C8973A;font-size:0.55rem;">✦</span>In-flight action plan (6 steps)</li>
-            <li style="font-size:0.85rem;color:#8A9BB0;padding:0.4rem 0;display:flex;align-items:center;gap:0.6rem;"><span style="color:#C8973A;font-size:0.55rem;">✦</span>Pre-flight checklist</li>
+          <p class="section-lead" data-i18n="wb.lead">
+            "The Fearless Flyer" is a beautifully crafted, printable workbook designed to walk you from anxiety to ease — no prior experience required.
+          </p>
+
+          <ul class="workbook-benefits" data-i18n-aria="wb.cta">
+            <li data-i18n="wb.b1">Guided exercises to identify and understand your triggers</li>
+            <li data-i18n="wb.b2">Calming techniques you can use in the moment on board</li>
+            <li data-i18n="wb.b3">Mindset shifts that reframe the flying experience</li>
+            <li data-i18n="wb.b4">A personal flight plan to build lasting confidence</li>
           </ul>
-          <div style="display:flex;align-items:baseline;gap:0.5rem;margin-bottom:1.3rem;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:#C8973A;font-weight:600;">FREE</span>
-            <span style="font-size:0.76rem;color:#8A9BB0;letter-spacing:0.08em;">/ Instant PDF Download</span>
-          </div>
-          <button onclick="document.getElementById('kaiaEmail').focus()" style="width:100%;background:linear-gradient(135deg,#C8973A,#E8B85A);color:#0B1829;border:none;border-radius:3px;padding:0.95rem;font-family:'Cinzel',serif;font-size:0.78rem;font-weight:600;letter-spacing:0.15em;cursor:pointer;">✦ Download Now</button>
+
+          <a
+            href="https://kaia-skies-coach.systeme.io/e91167a7"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+            aria-label="Download The Fearless Flyer free workbook — opens external page"
+          >
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true" width="18" height="18">
+              <path d="M9 1v10M5 7l4 4 4-4M2 13v2a2 2 0 002 2h10a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-i18n="wb.cta">Download Free</span>
+          </a>
         </div>
       </div>
+    </section>
 
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo"><em>Kaia</em> Skies</div>
+      <nav class="footer-legal" aria-label="Legal navigation">
+        <a href="terms.html"   data-i18n="footer.terms">Terms &amp; Conditions</a>
+        <a href="legal.html"   data-i18n="footer.legal">Legal Notice</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+      </nav>
     </div>
-  </div>
-
-  <!-- ── PREMIUM ── -->
-  <div id="kaia-premium" style="background:#0B1829;border-top:1px solid rgba(200,151,58,0.2);padding:5rem 1.5rem;">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:3.5rem;">
-        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(200,151,58,0.1);border:1px solid rgba(200,151,58,0.25);border-radius:50px;padding:0.35rem 1.1rem;font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:#C8973A;margin-bottom:1.2rem;">✦ Coming Soon ✦</div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,3rem);font-weight:300;text-align:center;line-height:1.2;margin-bottom:0.8rem;">The Premium <span style="color:#E8B85A;">Fear of Flying Workbook</span></h2>
-        <p style="text-align:center;color:#8A9BB0;max-width:560px;margin:0 auto;font-size:0.95rem;line-height:1.8;">A comprehensive 50+ page deep-dive with everything you need to fly with genuine, lasting confidence.</p>
-      </div>
-
-      <div style="display:flex;flex-wrap:wrap;gap:2px;background:rgba(200,151,58,0.15);border-radius:4px;overflow:hidden;margin-bottom:3rem;">
-        <div style="flex:1;min-width:280px;background:#0F2235;padding:2rem;"><div style="font-size:1.6rem;margin-bottom:0.8rem;">🧠</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#FAF4EA;margin-bottom:0.5rem;">Full CBT Programme</h3><p style="font-size:0.84rem;color:#8A9BB0;line-height:1.7;">Complete Cognitive Behavioural Therapy exercises — real guided practice, not just explanations.</p></div>
-        <div style="flex:1;min-width:280px;background:#0F2235;padding:2rem;"><div style="font-size:1.6rem;margin-bottom:0.8rem;">🪜</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#FAF4EA;margin-bottom:0.5rem;">Fear Ladder &amp; Exposure</h3><p style="font-size:0.84rem;color:#8A9BB0;line-height:1.7;">Build your personalised exposure hierarchy using the gold-standard therapeutic approach.</p></div>
-        <div style="flex:1;min-width:280px;background:#0F2235;padding:2rem;"><div style="font-size:1.6rem;margin-bottom:0.8rem;">🧘</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#FAF4EA;margin-bottom:0.5rem;">Meditation Scripts</h3><p style="font-size:0.84rem;color:#8A9BB0;line-height:1.7;">Guided visualisation scripts written specifically for takeoff, turbulence, and landing.</p></div>
-        <div style="flex:1;min-width:280px;background:#0F2235;padding:2rem;"><div style="font-size:1.6rem;margin-bottom:0.8rem;">✈️</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#FAF4EA;margin-bottom:0.5rem;">Aviation Insider Knowledge</h3><p style="font-size:0.84rem;color:#8A9BB0;line-height:1.7;">Every sound explained. What turbulence really means. What crew want you to know.</p></div>
-        <div style="flex:1;min-width:280px;background:#0F2235;padding:2rem;"><div style="font-size:1.6rem;margin-bottom:0.8rem;">📓</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#FAF4EA;margin-bottom:0.5rem;">Journal &amp; Progress Tracker</h3><p style="font-size:0.84rem;color:#8A9BB0;line-height:1.7;">Dedicated pages to track every flight and witness your own transformation over time.</p></div>
-        <div style="flex:1;min-width:280px;background:#0F2235;padding:2rem;"><div style="font-size:1.6rem;margin-bottom:0.8rem;">🌙</div><h3 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:400;color:#FAF4EA;margin-bottom:0.5rem;">Sleep &amp; Nutrition Guide</h3><p style="font-size:0.84rem;color:#8A9BB0;line-height:1.7;">What to eat, drink, and do the night before your flight for the best possible foundation.</p></div>
-      </div>
-
-      <div style="background:linear-gradient(135deg,#162D45,#0F2235);border:1px solid rgba(200,151,58,0.25);border-radius:4px;padding:3rem;text-align:center;position:relative;overflow:hidden;">
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#C8973A,#E8B85A,#C8973A);"></div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;margin-bottom:0.5rem;">Be the First to Know</h3>
-        <p style="color:#8A9BB0;margin-bottom:1.6rem;font-size:0.92rem;">The Premium Workbook is coming soon. Leave your email and get early access at a special launch price.</p>
-        <div style="display:inline-block;background:rgba(200,151,58,0.1);border:1px solid #C8973A;color:#C8973A;padding:0.55rem 1.8rem;border-radius:3px;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;margin-bottom:1.5rem;">✦ Coming Soon ✦</div>
-        <div style="display:flex;justify-content:center;gap:0;max-width:400px;margin:0 auto;">
-          <input id="kaiaNotify" type="email" placeholder="your@email.com" style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(200,151,58,0.25);border-right:none;border-radius:3px 0 0 3px;padding:0.82rem 1rem;color:#FFFFFF;font-family:'Lato',sans-serif;font-size:0.86rem;outline:none;">
-          <button onclick="kaiaNotifyMe()" style="background:transparent;color:#C8973A;border:1px solid #C8973A;border-radius:0 3px 3px 0;padding:0.82rem 1.2rem;font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.1em;cursor:pointer;white-space:nowrap;">Notify Me</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── TESTIMONIALS ── -->
-  <div style="background:#0F2235;border-top:1px solid rgba(200,151,58,0.2);padding:5rem 1.5rem;">
-    <div style="max-width:1100px;margin:0 auto;">
-      <div style="font-family:'Cinzel',serif;font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:#C8973A;text-align:center;margin-bottom:0.8rem;">What People Say</div>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,3rem);font-weight:300;text-align:center;line-height:1.2;margin-bottom:0.5rem;">Real Stories, <span style="color:#E8B85A;">Real Confidence</span></h2>
-      <p style="text-align:center;font-size:0.75rem;color:rgba(138,155,176,0.6);margin-bottom:2.5rem;font-style:italic;">* Example reviews for illustration purposes</p>
-      <div style="display:flex;flex-wrap:wrap;gap:1.4rem;">
-        <div style="flex:1;min-width:260px;background:#0B1829;border:1px solid rgba(200,151,58,0.2);border-radius:3px;padding:1.8rem;position:relative;">
-          <div style="position:absolute;top:0.8rem;right:1.2rem;font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:rgba(200,151,58,0.12);line-height:1;">"</div>
-          <div style="color:#C8973A;font-size:0.72rem;letter-spacing:0.1em;margin-bottom:0.9rem;">★ ★ ★ ★ ★</div>
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:#FAF4EA;line-height:1.7;margin-bottom:1.3rem;">I used the 4-7-8 breathing on a flight to Barcelona. By cruising altitude my heart rate had completely settled. I couldn't believe it actually worked.</p>
-          <div style="font-size:0.78rem;color:#8A9BB0;"><strong style="color:#C8973A;font-weight:400;display:block;margin-bottom:0.15rem;">— Sophie M.</strong>Nervous flyer for 12 years</div>
-        </div>
-        <div style="flex:1;min-width:260px;background:#0B1829;border:1px solid rgba(200,151,58,0.2);border-radius:3px;padding:1.8rem;position:relative;">
-          <div style="position:absolute;top:0.8rem;right:1.2rem;font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:rgba(200,151,58,0.12);line-height:1;">"</div>
-          <div style="color:#C8973A;font-size:0.72rem;letter-spacing:0.1em;margin-bottom:0.9rem;">★ ★ ★ ★ ★</div>
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:#FAF4EA;line-height:1.7;margin-bottom:1.3rem;">The thought-challenge exercise was a game changer. I realised my brain was treating turbulence as a threat when it's just physics. So clearly explained.</p>
-          <div style="font-size:0.78rem;color:#8A9BB0;"><strong style="color:#C8973A;font-weight:400;display:block;margin-bottom:0.15rem;">— Thomas K.</strong>Business traveller, Frankfurt</div>
-        </div>
-        <div style="flex:1;min-width:260px;background:#0B1829;border:1px solid rgba(200,151,58,0.2);border-radius:3px;padding:1.8rem;position:relative;">
-          <div style="position:absolute;top:0.8rem;right:1.2rem;font-family:'Cormorant Garamond',serif;font-size:3.5rem;color:rgba(200,151,58,0.12);line-height:1;">"</div>
-          <div style="color:#C8973A;font-size:0.72rem;letter-spacing:0.1em;margin-bottom:0.9rem;">★ ★ ★ ★ ★</div>
-          <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:#FAF4EA;line-height:1.7;margin-bottom:1.3rem;">I've tried everything — medication, therapy, white-knuckling it. This workbook gave me something I could actually use in the moment.</p>
-          <div style="font-size:0.78rem;color:#8A9BB0;"><strong style="color:#C8973A;font-weight:400;display:block;margin-bottom:0.15rem;">— Anja R.</strong>Flew with her family for the first time</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       IMPRESSUM
-  ══════════════════════════════════════════ -->
-  <div id="kaia-impressum" style="background:#0B1829;border-top:1px solid rgba(200,151,58,0.15);padding:4rem 1.5rem;">
-    <div style="max-width:800px;margin:0 auto;">
-      <h2 style="font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:0.2em;color:#C8973A;margin-bottom:2rem;text-transform:uppercase;">Impressum</h2>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.5rem;"><strong style="color:#FAF4EA;">Angaben gemäß § 5 TMG</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">
-        Max Mustermann<br>
-        Musterstraße 1<br>
-        12345 Musterstadt<br>
-        Deutschland
-      </p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">Kontakt</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">
-        E-Mail: kontakt@mustermann.de<br>
-        Telefon: +49 (0) 123 456789
-      </p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">Hinweis zu KI-generierten Inhalten</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">
-        Die Figur „Kaia" ist ein KI-generierter Charakter. Sämtliche Bilder wurden mittels KI erstellt. Die Inhalte des Workbooks basieren auf realen Erkenntnissen aus Luftfahrt und Psychologie.
-      </p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">Haftungsausschluss</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;">
-        Die Inhalte dieses Angebots ersetzen keine professionelle psychologische oder medizinische Beratung. Bei schwerwiegenden Angstzuständen empfehlen wir die Konsultation eines Facharztes oder Psychotherapeuten.
+    <div class="footer-inner" style="margin-top:0; padding-top:0;">
+      <p class="footer-copy">
+        <span data-i18n="footer.copy">&copy; 2025 Kaia Skies. All rights reserved.</span>
+        <br><span style="font-size:.7rem; opacity:.6;" data-i18n="footer.ai">This website uses AI-assisted tools to enhance the coaching experience.</span>
       </p>
     </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════
-       DATENSCHUTZ
-  ══════════════════════════════════════════ -->
-  <div id="kaia-datenschutz" style="background:#0F2235;border-top:1px solid rgba(200,151,58,0.15);padding:4rem 1.5rem;">
-    <div style="max-width:800px;margin:0 auto;">
-      <h2 style="font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:0.2em;color:#C8973A;margin-bottom:2rem;text-transform:uppercase;">Datenschutzerklärung</h2>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">1. Verantwortlicher</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Max Mustermann, Musterstraße 1, 12345 Musterstadt · kontakt@mustermann.de</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">2. Erhebung von Daten</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Beim Besuch dieser Website werden automatisch Informationen erfasst (IP-Adresse, Browser, Betriebssystem). Bei der Newsletter-Anmeldung speichern wir Ihre E-Mail-Adresse zur Zusendung des Workbooks und weiterer Informationen.</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">3. Google Analytics</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Diese Website verwendet Google Analytics, einen Webanalysedienst der Google LLC. Google Analytics verwendet Cookies. Die Nutzung erfolgt nur nach Ihrer Zustimmung. Sie können der Verarbeitung jederzeit widersprechen. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO.</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">4. Systeme.io</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Zur Verwaltung von E-Mail-Adressen und zum Versand des Workbooks nutzen wir Systeme.io. Ihre Daten werden ausschließlich für diesen Zweck verwendet und nicht an Dritte weitergegeben.</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">5. Ihre Rechte</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten sowie das Recht auf Datenübertragbarkeit. Wenden Sie sich dazu an: kontakt@mustermann.de</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">6. Abmeldung</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;">Sie können sich jederzeit vom Newsletter abmelden. Jede E-Mail enthält einen Abmelde-Link.</p>
+    <!-- Legal bar - full width bottom strip -->
+    <div class="footer-legal-bar">
+      <nav aria-label="Legal links bottom">
+        <a href="terms.html"   data-i18n="footer.terms">Terms &amp; Conditions</a>
+        <span aria-hidden="true">·</span>
+        <a href="legal.html"   data-i18n="footer.legal">Legal Notice</a>
+        <span aria-hidden="true">·</span>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+      </nav>
     </div>
-  </div>
+  </footer>
 
-  <!-- ══════════════════════════════════════════
-       AGB
-  ══════════════════════════════════════════ -->
-  <div id="kaia-agb" style="background:#0B1829;border-top:1px solid rgba(200,151,58,0.15);padding:4rem 1.5rem;">
-    <div style="max-width:800px;margin:0 auto;">
-      <h2 style="font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:0.2em;color:#C8973A;margin-bottom:2rem;text-transform:uppercase;">Allgemeine Geschäftsbedingungen</h2>
+  <script src="lang.js"></script>
+  <!-- ── SCRIPTS ─────────────────────────────────────────────────────── -->
+  <script>
+    'use strict';
 
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">1. Geltungsbereich</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Diese AGB gelten für alle Käufe digitaler Produkte über diese Website zwischen Max Mustermann (Anbieter) und dem Kunden.</p>
+    /* ── COOKIE CONSENT ─────────────────────────────────────────────── */
+    const banner = document.getElementById('cookie-banner');
+    const COOKIE_KEY = 'kaia_cookie_consent';
 
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">2. Digitale Produkte</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Die angebotenen Workbooks sind digitale Produkte im PDF-Format. Nach Kaufabschluss erhalten Sie einen Download-Link per E-Mail. Das Widerrufsrecht erlischt bei digitalen Inhalten mit Beginn des Downloads, sofern Sie dem ausdrücklich zugestimmt haben.</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">3. Preise und Zahlung</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Alle Preise verstehen sich inkl. der gesetzlichen Mehrwertsteuer. Die Zahlung erfolgt über die angebotenen Zahlungsdienstleister (Stripe / PayPal).</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">4. Nutzungsrecht</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Mit dem Kauf erwerben Sie ein einfaches, nicht übertragbares Nutzungsrecht für den persönlichen Gebrauch. Eine Weitergabe, Vervielfältigung oder kommerzielle Nutzung ist nicht gestattet.</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">5. Haftung</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:1.5rem;">Die Inhalte ersetzen keine professionelle psychologische Beratung. Der Anbieter übernimmt keine Haftung für den Erfolg der angewandten Techniken.</p>
-
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;margin-bottom:0.3rem;"><strong style="color:#FAF4EA;">6. Schlussbestimmungen</strong></p>
-      <p style="color:#8A9BB0;font-size:0.88rem;line-height:1.9;">Es gilt deutsches Recht. Gerichtsstand ist Musterstadt. Stand: Mai 2025.</p>
-    </div>
-  </div>
-
-  <!-- ── FOOTER ── -->
-  <div style="padding:2.5rem 1.5rem;border-top:1px solid rgba(200,151,58,0.2);background:#0B1829;">
-    <div style="max-width:1100px;margin:0 auto;text-align:center;">
-      <div style="font-family:'Cinzel',serif;font-size:1.1rem;color:#C8973A;letter-spacing:0.2em;margin-bottom:1rem;">KAIA ✦</div>
-      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;margin-bottom:1rem;">
-        <a href="#kaia-impressum" style="font-size:0.76rem;color:#8A9BB0;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">Impressum</a>
-        <a href="#kaia-datenschutz" style="font-size:0.76rem;color:#8A9BB0;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">Datenschutz</a>
-        <a href="#kaia-agb" style="font-size:0.76rem;color:#8A9BB0;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;">AGB</a>
-      </div>
-      <p style="font-size:0.74rem;color:rgba(138,155,176,0.5);">Kaia ist ein KI-generierter Charakter. Alle Bilder wurden mittels KI erstellt.</p>
-      <p style="font-size:0.74rem;color:rgba(138,155,176,0.4);margin-top:0.3rem;">© 2025 Max Mustermann · Alle Rechte vorbehalten</p>
-    </div>
-  </div>
-
-</div><!-- end #kaia-wrap -->
-
-<script>
-(function(){
-
-  // ── Cookie Banner Logic ──
-  var cookie = document.getElementById('kaia-cookie');
-  if (!localStorage.getItem('kaia-cookies')) {
-    setTimeout(function(){ cookie.style.display = 'flex'; }, 1500);
-  } else if (localStorage.getItem('kaia-cookies') === 'accepted') {
-    kaiaEnableAnalytics();
-  }
-
-  window.kaiaCookieAccept = function() {
-    localStorage.setItem('kaia-cookies', 'accepted');
-    cookie.style.display = 'none';
-    kaiaEnableAnalytics();
-  };
-
-  window.kaiaCookieDecline = function() {
-    localStorage.setItem('kaia-cookies', 'declined');
-    cookie.style.display = 'none';
-  };
-
-  // ── Form handlers ──
-  window.kaiaDownload = function() {
-    var email = document.getElementById('kaiaEmail').value;
-    if (!email || !email.includes('@')) {
-      document.getElementById('kaiaEmail').style.borderColor = '#e05a5a';
-      return;
-    }
-    // TODO: Systeme.io Embed Code hier einfügen
-    alert('Danke! Dein kostenloses Workbook ist auf dem Weg zu ' + email);
-    if (kaiaAnalyticsEnabled) gtag('event', 'free_download', { email: email });
-  };
-
-  window.kaiaNotifyMe = function() {
-    var email = document.getElementById('kaiaNotify').value;
-    if (!email || !email.includes('@')) return;
-    alert('Du bist auf der Liste! Wir benachrichtigen dich unter ' + email);
-    if (kaiaAnalyticsEnabled) gtag('event', 'premium_notify', { email: email });
-  };
-
-  // ── Smooth scroll for anchor links ──
-  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-    a.addEventListener('click', function(e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function initCookieBanner() {
+      const consent = localStorage.getItem(COOKIE_KEY);
+      if (!consent) {
+        setTimeout(() => banner.classList.add('visible'), 800);
+      } else if (consent === 'accepted') {
+        loadGA();
       }
-    });
-  });
+    }
 
-})();
-</script>
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+      localStorage.setItem(COOKIE_KEY, 'accepted');
+      banner.classList.remove('visible');
+      setTimeout(() => banner.classList.add('hidden'), 650);
+      loadGA();
+    });
+
+    document.getElementById('cookie-decline').addEventListener('click', () => {
+      localStorage.setItem(COOKIE_KEY, 'declined');
+      banner.classList.remove('visible');
+      setTimeout(() => banner.classList.add('hidden'), 650);
+    });
+
+    function loadGA() {
+      const GA_ID = 'G-XXXXXXXXXX'; // ← Deine GA4 Measurement ID einsetzen
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', GA_ID, { anonymize_ip: true });
+    }
+
+    initCookieBanner();
+
+    /* ── NAV SCROLL ─────────────────────────────────────────────────── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* ── REVEAL ON SCROLL ───────────────────────────────────────────── */
+    const revealObserver = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+      }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ── LINE REVEAL ────────────────────────────────────────────────── */
+    const lineObserver = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); lineObserver.unobserve(e.target); }
+      }),
+      { threshold: 0.2 }
+    );
+    document.querySelectorAll('.line-reveal').forEach(el => lineObserver.observe(el));
+
+    /* ── COUNT-UP ANIMATION ─────────────────────────────────────────── */
+    function animateCount(el) {
+      const target   = parseFloat(el.dataset.target);
+      const suffix   = el.dataset.suffix || '';
+      const duration = 1400; // ms
+      const start    = performance.now();
+      const ease     = t => t < .5 ? 2*t*t : -1+(4-2*t)*t; // ease-in-out quad
+
+      function step(now) {
+        const elapsed  = Math.min(now - start, duration);
+        const progress = ease(elapsed / duration);
+        const value    = Math.round(progress * target);
+        el.textContent = value + suffix;
+        if (elapsed < duration) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+
+    const countObserver = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount(e.target);
+          countObserver.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.5 }
+    );
+    document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+
+    /* ── BACKGROUND VIDEO — SCROLL SCRUB FORWARD + BACKWARD ─────────── */
+    (function initVideo() {
+      const video = document.getElementById('bg-video');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        video.remove(); return;
+      }
+
+      let unlocked = false;
+      let targetTime = 0;
+      let animId = null;
+
+      // ① Fade in once video is ready
+      video.addEventListener('canplay', () => {
+        video.classList.add('loaded');
+      }, { once: true });
+
+      // ② Muted autoplay is permitted in all browsers.
+      //    Once `playing` fires we know seeking is unlocked — pause immediately
+      //    and hand control to the scroll handler.
+      video.addEventListener('playing', () => {
+        if (!unlocked) {
+          unlocked = true;
+          video.pause();
+          video.currentTime = 0;
+          startScrubLoop();
+        }
+      }, { once: true });
+
+      video.muted = true;
+      video.load();
+      video.play().catch(() => {
+        // Fallback: some browsers need a user gesture.
+        // Unlock on first interaction instead.
+        const unlock = () => {
+          video.play().then(() => {}).catch(() => {});
+          document.removeEventListener('click', unlock);
+          document.removeEventListener('scroll', unlock);
+        };
+        document.addEventListener('click',  unlock, { once: true, passive: true });
+        document.addEventListener('scroll', unlock, { once: true, passive: true });
+      });
+
+      // ③ Seek helper — fastSeek() jumps to nearest keyframe (no decode lag)
+      //    Falls back to currentTime if fastSeek is unavailable
+      function seekTo(t) {
+        if (!video.duration) return;
+        const clamped = Math.max(0, Math.min(t, video.duration * 0.97));
+        if (typeof video.fastSeek === 'function') {
+          video.fastSeek(clamped);
+        } else {
+          video.currentTime = clamped;
+        }
+      }
+
+      function startScrubLoop() {
+        // Nothing to loop — seeking is triggered directly from scroll
+      }
+
+      // ④ Map scroll → video time, throttled to ~24fps so browser can keep up
+      const FRAME_MS = 1000 / 24;
+      let lastSeek = 0;
+
+      window.addEventListener('scroll', () => {
+        if (!unlocked || !video.duration) return;
+        const now = performance.now();
+        if (now - lastSeek < FRAME_MS) return; // throttle
+        lastSeek = now;
+
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const progress  = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
+        const target    = progress * video.duration * 0.97;
+
+        // Skip tiny changes (< 80ms of video) to avoid redundant seeks
+        if (Math.abs(video.currentTime - target) < 0.08) return;
+        seekTo(target);
+      }, { passive: true });
+    })();
+
+    /* ── CURSOR GLOW ────────────────────────────────────────────────── */
+    (function initCursorGlow() {
+      const glow = document.getElementById('cursor-glow');
+      // Only on non-touch devices
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let mouseX = 0, mouseY = 0;
+      let currentX = 0, currentY = 0;
+      let fadeTimer = null;
+      let rafId = null;
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function animate() {
+        currentX = lerp(currentX, mouseX, 0.1);
+        currentY = lerp(currentY, mouseY, 0.1);
+        glow.style.left = currentX + 'px';
+        glow.style.top  = currentY + 'px';
+        rafId = requestAnimationFrame(animate);
+      }
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        glow.classList.add('active');
+
+        // Fade out after 2.5s of inactivity
+        clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(() => glow.classList.remove('active'), 2500);
+
+        if (!rafId) rafId = requestAnimationFrame(animate);
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', () => {
+        glow.classList.remove('active');
+      });
+    })();
+
+    /* ── STAR CANVAS ────────────────────────────────────────────────── */
+    (function initStars() {
+      const canvas = document.getElementById('star-canvas');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        canvas.style.display = 'none'; return;
+      }
+      const ctx = canvas.getContext('2d');
+      let W, H, stars = [];
+      const STAR_COUNT = Math.min(120, Math.floor(window.innerWidth * .09));
+
+      function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+
+      function mkStar() {
+        return { x: Math.random()*W, y: Math.random()*H, r: Math.random()*.9+.15,
+                 a: Math.random(), da: (Math.random()-.5)*.003,
+                 dx: (Math.random()-.5)*.06, dy: (Math.random()-.5)*.03 };
+      }
+
+      function setup() { resize(); stars = Array.from({ length: STAR_COUNT }, mkStar); }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        stars.forEach(s => {
+          s.a = Math.max(.04, Math.min(1, s.a + s.da));
+          if (s.a <= .04 || s.a >= 1) s.da *= -1;
+          s.x = (s.x + s.dx + W) % W;
+          s.y = (s.y + s.dy + H) % H;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(232,201,122,${s.a * .5})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      setup(); draw();
+      window.addEventListener('resize', setup, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>
