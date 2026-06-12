@@ -778,6 +778,76 @@
       margin-bottom: 1.25rem;
     }
 
+    .workbook-meta-badge {
+      background: rgba(245,240,232,.04);
+      border-color: rgba(245,240,232,.15);
+      color: var(--text-muted);
+      text-transform: none;
+      letter-spacing: .05em;
+      font-weight: 500;
+      margin-left: .5rem;
+    }
+
+    /* ── FULL EDITION — COMING SOON ─────────────────────────────────── */
+    #full-edition {
+      background: rgba(7,21,43,.7);
+      backdrop-filter: blur(3px);
+      padding: 0;
+    }
+
+    .book-cover--gold {
+      background: linear-gradient(150deg, #2B2410 0%, var(--navy-900) 55%, var(--navy-950) 100%);
+      border-color: rgba(232,201,122,.4);
+      box-shadow:
+        var(--shadow-card),
+        -6px 12px 40px rgba(3,11,24,.6),
+        0 0 80px rgba(201,168,76,.16);
+    }
+
+    .coming-soon-badge {
+      display: inline-flex; align-items: center; gap: .375rem;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-950);
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .3rem .875rem;
+      border-radius: 50px;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 16px rgba(201,168,76,.3);
+    }
+
+    .launch-notice {
+      background: rgba(201,168,76,.08);
+      border: 1px solid rgba(201,168,76,.25);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    .launch-notice-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--gold-400);
+      margin-bottom: .375rem;
+    }
+    .launch-notice-text {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* German-only language note ("book is in English") */
+    .lang-note {
+      display: flex; align-items: flex-start; gap: .5rem;
+      font-size: .8125rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: -.5rem 0 1.75rem;
+    }
+    .lang-note svg { flex-shrink: 0; width: 16px; height: 16px; margin-top: .1rem; }
+    .lang-note strong { color: var(--cream); font-weight: 500; }
+    @media (max-width: 768px) { .lang-note { text-align: left; } }
+
     /* ── FOOTER ─────────────────────────────────────────────────────── */
     footer {
       position: relative; z-index: 2;
@@ -958,7 +1028,7 @@
         </h1>
 
         <p class="hero-sub" data-i18n="hero.sub">
-          You deserve to travel without anxiety holding you back. Discover a gentle, evidence-based approach that transforms fear into freedom — one flight at a time.
+          You deserve to travel without anxiety holding you back. Start with the free workbook "The Fearless Flyer" — a gentle, evidence-based approach that transforms fear into freedom, one flight at a time.
         </p>
 
         <div class="hero-cta-group">
@@ -1115,6 +1185,8 @@
                 fill="currentColor"/>
             </svg>
             <span data-i18n="wb.badge">100% Free</span>
+          </div><div class="workbook-free-badge workbook-meta-badge">
+            <span data-i18n="wb.meta">14 pages · Tools 1 &amp; 2 of 7</span>
           </div>
 
           <h2 class="section-title line-reveal" id="workbook-heading">
@@ -1123,14 +1195,22 @@
           </h2>
 
           <p class="section-lead" data-i18n="wb.lead">
-            "The Fearless Flyer" is a beautifully crafted, printable workbook designed to walk you from anxiety to ease — no prior experience required.
+            "The Fearless Flyer" is a beautifully crafted, printable workbook that gets you started today — the first two tools of the full programme, completely free.
+          </p>
+
+          <p class="lang-de lang-note" style="margin-top:1rem;">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="7" stroke="#C9A84C" stroke-opacity=".5"/>
+              <path d="M8 4v5M8 11.5v.01" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <span><strong>Hinweis:</strong> Das Workbook ist derzeit auf Englisch verfügbar. Eine deutsche Version ist bereits in Arbeit.</span>
           </p>
 
           <ul class="workbook-benefits" data-i18n-aria="wb.cta">
-            <li data-i18n="wb.b1">Guided exercises to identify and understand your triggers</li>
-            <li data-i18n="wb.b2">Calming techniques you can use in the moment on board</li>
-            <li data-i18n="wb.b3">Mindset shifts that reframe the flying experience</li>
-            <li data-i18n="wb.b4">A personal flight plan to build lasting confidence</li>
+            <li data-i18n="wb.b1">Map your personal fear profile and pinpoint what actually triggers you</li>
+            <li data-i18n="wb.b2">A 2-minute calming quick win you can feel working immediately</li>
+            <li data-i18n="wb.b3">The fear loop explained — why your brain sounds a false alarm in the air</li>
+            <li data-i18n="wb.b4">Your 5-stage journey map, so you always know where you are</li>
           </ul>
 
           <a
@@ -1149,6 +1229,89 @@
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- FULL EDITION — COMING SOON -->
+    <section id="full-edition" aria-labelledby="full-heading">
+      <div class="workbook-inner">
+        <div class="workbook-copy reveal">
+          <div class="coming-soon-badge">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <circle cx="5" cy="5" r="4" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M5 2.8V5l1.6 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="full.badge">Coming Soon</span>
+          </div>
+
+          <h2 class="section-title line-reveal" id="full-heading">
+            <span class="line-inner" data-i18n-html="full.titleL1">The <em>Complete Edition</em></span>
+            <span class="line-inner" data-i18n="full.titleL2">is on final approach</span>
+          </h2>
+
+          <p class="section-lead" data-i18n="full.lead">
+            The full Fearless Flyer programme: 58 pages, all 7 tools, and a dedicated chapter for every fear that keeps you on the ground.
+          </p>
+
+          <p class="lang-de lang-note" style="margin-top:1rem;">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <circle cx="8" cy="8" r="7" stroke="#C9A84C" stroke-opacity=".5"/>
+              <path d="M8 4v5M8 11.5v.01" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <span><strong>Hinweis:</strong> Die Complete Edition erscheint zunächst auf Englisch. Eine deutsche Fassung ist in Vorbereitung.</span>
+          </p>
+
+          <ul class="workbook-benefits">
+            <li data-i18n="full.b1">The complete 7-tool toolkit — from breathwork to your personal exposure ladder</li>
+            <li data-i18n="full.b2">Deep chapters on the four core fears: loss of control, turbulence, crashing, and panic on board</li>
+            <li data-i18n="full.b3">"When News Fuels Fear" — staying calm in a world of alarming headlines</li>
+            <li data-i18n="full.b4">The Top 20 flight anxiety questions, answered</li>
+            <li data-i18n="full.b5">A cut-out Flight Anxiety Emergency Card for your pocket</li>
+          </ul>
+
+          <div class="launch-notice">
+            <p class="launch-notice-title" data-i18n="full.noticeTitle">Be the first to board</p>
+            <p class="launch-notice-text" data-i18n="full.notice">
+              Get the free workbook now and you will automatically receive an email the moment the Complete Edition launches — including a special launch price reserved for subscribers.
+            </p>
+          </div>
+
+          <a
+            href="https://kaia-skies-coach.systeme.io/e91167a7"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+            aria-label="Get the free workbook and join the Complete Edition launch list — opens external page"
+          >
+            <svg viewBox="0 0 18 18" fill="none" aria-hidden="true" width="18" height="18">
+              <path d="M9 2a5 5 0 015 5v3l1.5 2.5H2.5L4 10V7a5 5 0 015-5zM7.5 14.5a1.5 1.5 0 003 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-i18n="full.cta">Get the free workbook &amp; join the launch list</span>
+          </a>
+        </div>
+
+        <div class="workbook-visual reveal reveal-delay-2">
+          <div class="book-glow" aria-hidden="true"></div>
+          <div class="book-mockup" aria-hidden="true">
+            <div class="book-cover book-cover--gold">
+              <div class="book-star">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 4L27.5 17H41L30.5 25L34 38L24 30L14 38L17.5 25L7 17H20.5L24 4Z"
+                    fill="rgba(232,201,122,.25)" stroke="rgba(232,201,122,.8)" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="book-title-text">
+                The Fearless<br>Flyer
+                <span data-i18n="full.bookSub">Complete Edition · Coming Soon</span>
+              </div>
+              <div class="book-lines">
+                <div></div><div></div><div></div><div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
@@ -1163,7 +1326,7 @@
     </div>
     <div class="footer-inner" style="margin-top:0; padding-top:0;">
       <p class="footer-copy">
-        <span data-i18n="footer.copy">&copy; 2025 Kaia Skies. All rights reserved.</span>
+        <span data-i18n="footer.copy">&copy; 2026 Kaia Skies. All rights reserved.</span>
         <br><span style="font-size:.7rem; opacity:.6;" data-i18n="footer.ai">This website uses AI-assisted tools to enhance the coaching experience.</span>
       </p>
     </div>
@@ -1211,7 +1374,7 @@
     });
 
     function loadGA() {
-      const GA_ID = 'G-XXXXXXXXXX'; // ← Deine GA4 Measurement ID einsetzen
+      const GA_ID = 'G-58V16MCEYN'; // GA4 Measurement ID
       const s = document.createElement('script');
       s.async = true;
       s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
@@ -1279,7 +1442,7 @@
     );
     document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
 
-    /* ── BACKGROUND VIDEO — SCROLL SCRUB FORWARD + BACKWARD ─────────── */
+    /* ── BACKGROUND VIDEO — SMOOTH SCROLL SCRUB (rAF + LERP) ────────── */
     (function initVideo() {
       const video = document.getElementById('bg-video');
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1288,7 +1451,10 @@
 
       let unlocked = false;
       let targetTime = 0;
-      let animId = null;
+      let seekPending = false;
+      let seekIssuedAt = 0;
+
+      video.addEventListener('seeked', () => { seekPending = false; });
 
       // ① Fade in once video is ready
       video.addEventListener('canplay', () => {
@@ -1297,13 +1463,14 @@
 
       // ② Muted autoplay is permitted in all browsers.
       //    Once `playing` fires we know seeking is unlocked — pause immediately
-      //    and hand control to the scroll handler.
+      //    and hand control to the scrub loop.
       video.addEventListener('playing', () => {
         if (!unlocked) {
           unlocked = true;
           video.pause();
           video.currentTime = 0;
-          startScrubLoop();
+          updateTarget();
+          requestAnimationFrame(tick);
         }
       }, { once: true });
 
@@ -1321,40 +1488,35 @@
         document.addEventListener('scroll', unlock, { once: true, passive: true });
       });
 
-      // ③ Seek helper — fastSeek() jumps to nearest keyframe (no decode lag)
-      //    Falls back to currentTime if fastSeek is unavailable
-      function seekTo(t) {
+      // ③ Scroll only records where the playhead SHOULD be — cheap, no seek
+      function updateTarget() {
         if (!video.duration) return;
-        const clamped = Math.max(0, Math.min(t, video.duration * 0.97));
-        if (typeof video.fastSeek === 'function') {
-          video.fastSeek(clamped);
-        } else {
-          video.currentTime = clamped;
-        }
-      }
-
-      function startScrubLoop() {
-        // Nothing to loop — seeking is triggered directly from scroll
-      }
-
-      // ④ Map scroll → video time, throttled to ~24fps so browser can keep up
-      const FRAME_MS = 1000 / 24;
-      let lastSeek = 0;
-
-      window.addEventListener('scroll', () => {
-        if (!unlocked || !video.duration) return;
-        const now = performance.now();
-        if (now - lastSeek < FRAME_MS) return; // throttle
-        lastSeek = now;
-
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         const progress  = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
-        const target    = progress * video.duration * 0.97;
+        targetTime = progress * video.duration * 0.97;
+      }
+      window.addEventListener('scroll', updateTarget, { passive: true });
+      window.addEventListener('resize', updateTarget, { passive: true });
 
-        // Skip tiny changes (< 80ms of video) to avoid redundant seeks
-        if (Math.abs(video.currentTime - target) < 0.08) return;
-        seekTo(target);
-      }, { passive: true });
+      // ④ A rAF loop eases the playhead toward the target. Precise
+      //    currentTime seeks (fastSeek snaps to keyframes → visible jumps),
+      //    issued only when the previous seek has finished, so the decoder
+      //    never gets flooded and the scrub stays fluid in both directions.
+      function tick() {
+        // A stalled seek (no `seeked` within 250ms) must not freeze the loop
+        const stalled = seekPending && performance.now() - seekIssuedAt > 250;
+        if (unlocked && video.duration && (!seekPending || stalled)) {
+          const diff = targetTime - video.currentTime;
+          if (Math.abs(diff) > 0.004) {
+            // Close the final gap directly, otherwise ease ~16% per frame
+            const step = Math.abs(diff) < 0.024 ? diff : diff * 0.16;
+            seekPending = true;
+            seekIssuedAt = performance.now();
+            video.currentTime = video.currentTime + step;
+          }
+        }
+        requestAnimationFrame(tick);
+      }
     })();
 
     /* ── CURSOR GLOW ────────────────────────────────────────────────── */
