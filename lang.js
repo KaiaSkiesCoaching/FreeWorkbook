@@ -79,7 +79,7 @@ const TRANSLATIONS = {
       cta:      'Get the free workbook & join the launch list'
     },
     footer: {
-      copy:    '© 2026 Kaia Skies. All rights reserved.',
+      copy:    '© 2026 KS Media. All rights reserved.',
       ai:      'This website uses AI-assisted tools to enhance the coaching experience.',
       terms:   'Terms & Conditions',
       legal:   'Legal Notice',
@@ -182,7 +182,7 @@ const TRANSLATIONS = {
       cta:      'Gratis-Workbook sichern & auf die Launch-Liste'
     },
     footer: {
-      copy:    '© 2026 Kaia Skies. Alle Rechte vorbehalten.',
+      copy:    '© 2026 KS Media. Alle Rechte vorbehalten.',
       ai:      'Diese Website nutzt KI-gestützte Werkzeuge zur Unterstützung des Coaching-Erlebnisses.',
       terms:   'AGB',
       legal:   'Impressum',
